@@ -1,0 +1,18 @@
+
+
+# Control of Parameters are valid or not. raise_exception=True checks it
+
+@api_view(['POST'])
+def api_home(request, *args, **kwargs):
+    '''
+    DEF API VIEW
+    '''
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        # instance = serializer.save(commit=False) # delete commit=False when it's ready
+        # instance = form.save() : same thing
+        print(serializer.data)
+        return Response(serializer.data)
+    
+    return Response({"invalid":"not valid data"}, status=400)
+
